@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  db: 
+    image: postgres
+    container_name: nestdev-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=nestdev
+      - PGDATA=/data/postgres
+    ports:
+      - "5432:5432"
+    volumes:
+       - nestdevdb:/data/postgres
+    networks:
+      - nestdev
+
+  nestdev:
+    build:
+      context: .
+    container_name: nestdev-server
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    env_file: .env
+    networks:
+      - nestdev
+    depends_on:
+      - db
+
+networks:
+  nestdev:
+    driver: bridge
+
+volumes:
+  nestdevdb:
