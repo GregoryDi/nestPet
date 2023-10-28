@@ -1,19 +1,16 @@
 ## Description
 
-Установка:
+Installation:
 npm i
 
-Запуск:
+Start:
 
-Сервер с бд:
+Server with db:
 sudo docker-compose up -d
 
-логи сервера:
+Server logs:
 docker-compose logs -f nestdev
 
-Пока стоит автосинхронизация базы данных, без миграций, их можно сгенерить будет и запускать когда будет развертка на стейдже, чтобы ничего не удалялось без них.
-Чтобы поглядеть на них на локале, можно изменить synchronize флаг на false, удалить контейнер с базой и запустить заного.
-Сгенерить миграции с нуля
 
 ```bash
 npm run typeorm migration:generate -- -n initial-schema -o
@@ -29,7 +26,6 @@ npm run typeorm migration:run
 #------------------------------------------------------------------------------------------------------------------------------------------#
 #------------------------------------------------------------------------------------------------------------------------------------------#
 
-Что потестить?
 
 swagger
 
@@ -37,26 +33,19 @@ swagger
 http://localhost:3000/api
 ```
 
-Запрос запускает в очередь рассылку писем, обрабатывается в отдельном процессе
+Req for email sending queue
 
 ```bash
 http://localhost:3000/admins/sendMail
 ```
-
-Загрузка файла
+File load
 
 ```bash
 http://localhost:3000/files
 ```
 
-Политики аутентификации запросов(guards)
 
-Авторизация по jwt токену, пока без рефреша
-
-декоратор currentUser извлекает role,id юзера из jwt токена, можно добавить и другую инфу, или полное получение записи,
-посмотреть можно users/users.controller.ts(method whoami)
-
-В планах добвить сервер, redis в докер контейнеры.
+Decorator currentUser get role,id of user from jwt token, look at users/users.controller.ts(method whoami)
 
 ## Installation
 
